@@ -1,0 +1,102 @@
+﻿<Window x:Class="MaterialColorsTest.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="pack://application:,,,/MaterialColorsTest;component/Resources/app_icon.png"
+        Title="Цвета материалов"
+        Width="640" Height="560"
+        MinWidth="480" MinHeight="360"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Блок поиска -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,8">
+            <TextBlock Text="Поиск:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     VerticalContentAlignment="Center" Height="26"/>
+        </DockPanel>
+
+        <!-- Список материалов -->
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding MaterialsView}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Материал"
+                                    Binding="{Binding Name}"
+                                    Width="*"/>
+
+                <DataGridTemplateColumn Header="Текущий" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding OriginalBrush}"
+                                    BorderBrush="Gray" BorderThickness="1"
+                                    Height="18" Margin="4"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Новый" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding NewBrush}"
+                                    BorderBrush="Gray" BorderThickness="1"
+                                    Height="18" Margin="4"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="110">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Выбрать цвет"
+                                    Margin="4" Padding="6,2"
+                                    Command="{Binding DataContext.PickColorCommand,
+                                    RelativeSource={RelativeSource AncestorType=Window}}"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Нижняя панель с кнопками -->
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Button Width="140" Height="23"
+                    HorizontalAlignment="Left"
+                    Command="{Binding PickElementCommand}">
+
+                <Button.ToolTip>
+                    <TextBlock MaxWidth="300" TextWrapping="Wrap">
+                        <Run Text="Окно закроется, и активируется режим выбора отдельного объекта в модели."/>
+                        <LineBreak/>
+                        <Run Text="После щелчка по компоненту отобразится список его материалов, включая вложенные семейства."/>
+                        <LineBreak/><LineBreak/>
+                        <Run FontWeight="Bold" Text="Внимание! Изменение цвета материала отразится на всём проекте."/>
+                    </TextBlock>
+                </Button.ToolTip>
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="pack://application:,,,/MaterialColorsTest;component/Resources/Kursor.png"
+                           Width="16" Height="16" Margin="0,0,6,0"/>
+                    <TextBlock Text="Выбрать элемент" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Сбросить" Width="100" Height="23" Margin="0,0,8,0"
+                        Command="{Binding ResetCommand}"/>
+                <Button Content="Применить" Width="100" Height="23"
+                        Command="{Binding ApplyCommand}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

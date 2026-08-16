@@ -1,0 +1,74 @@
+﻿<Window x:Class="MaterialColorsTest.Views.ElementMaterialsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="pack://application:,,,/MaterialColorsTest;component/Resources/app_icon.png"
+        Title="Материалы элемента"
+        Width="720" Height="420"
+        MinWidth="560" MinHeight="300"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0"
+                  ItemsSource="{Binding Materials}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Семейство"
+                                    Binding="{Binding FamilyName}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Материал"
+                                    Binding="{Binding Name}"
+                                    Width="*"/>
+
+                <DataGridTemplateColumn Header="Текущий" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding OriginalBrush}"
+                                    BorderBrush="Gray" BorderThickness="1"
+                                    Height="18" Margin="4"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Новый" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding NewBrush}"
+                                    BorderBrush="Gray" BorderThickness="1"
+                                    Height="18" Margin="4"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="110">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Выбрать цвет"
+                                    Margin="4" Padding="6 2"
+                                    Command="{Binding DataContext.PickColorCommand,
+                                              RelativeSource={RelativeSource AncestorType=Window}}"
+                                    CommandParameter="{Binding}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0 10 0 0">
+            <Button Content="Сбросить" Width="100" Height="28" Margin="0 0 8 0"
+                    Command="{Binding ResetCommand}"/>
+            <Button Content="Применить" Width="100" Height="28"
+                    Command="{Binding ApplyCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
