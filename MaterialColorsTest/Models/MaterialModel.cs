@@ -10,10 +10,7 @@ namespace MaterialColorsTest.Models
     /// <summary>
     ///  Сущность данных самого материала.  
     /// </summary>
-
-
-    // Связали Цвет id и название материала в единую сущность
-
+    
     public class MaterialModel
     {
         public ElementId Id { get; }

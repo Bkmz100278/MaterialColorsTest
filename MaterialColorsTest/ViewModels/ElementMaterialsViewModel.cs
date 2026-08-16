@@ -60,8 +60,9 @@ namespace MaterialColorsTest.ViewModels
         {
             try
             {
-                // A single material might appear across multiple rows, 
-                // so we avoid ToDictionary (which throws on duplicate keys) and use a loop where the last entry wins.
+                // Один и тот же материал может встречаться в нескольких строках, 
+                // поэтому цикл, в котором сохраняется последнее встреченное значение.
+
                 var changes = new Dictionary<ElementId, Color>();
 
                 foreach (var item in Materials.Where(m => m.IsModified))
