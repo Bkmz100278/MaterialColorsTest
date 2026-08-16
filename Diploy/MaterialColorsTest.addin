@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>MaterialColorsTest</Name>
+    <Assembly>MaterialColorsTest\MaterialColorsTest.dll</Assembly>
+    <AddInId>9cee39de-7ec8-4d65-9669-77dad49797ca</AddInId>
+    <FullClassName>MaterialColorsTest.App</FullClassName>
+    <VendorId>MSPR</VendorId>
+    <VendorDescription>Plugin by Zharkov I.M. Test</VendorDescription>
+  </AddIn>
+</RevitAddIns>
